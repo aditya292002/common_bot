@@ -97,25 +97,50 @@ from icecream import ic
 # # [DANGER] Delete all the conversations for the logged in user
 # chatbot.delete_all_conversations()
 
+import os
+# from PyPDF2 import PdfReader
+# from pypdf import PdfReader
 
-# import json
-# user_info = {
-#     "email":"keshariaditya90@gmail.com",
-#     "password":"Adikes209@@@@@"
-# }
+# def add_pdf_content_to_file(filename):
+#     # reader = PdfReader(filename)
+#     # number_of_pages = len(reader.pages)
+#     # content = []
+#     # for i in range(number_of_pages):
+#     #     page = reader.pages[0]
+#     #     text = page.extract_text()
+#     #     content.append(text)
+#     # ic(content)
+#     reader = PdfReader("pdf_files/Aditya_Keshari_Resume.pdf")
+#     number_of_pages = len(reader.pages)
+#     page = reader.pages[0]
+#     text = page.extract_text()
+#     ic(number_of_pages)
+#     ic(page)
+#     ic(text)
+    
+#     # with open("data.txt", "w") as f:
+#     #     for page in content:
+#     #         f.write("%s\n" % page)   
+      
+# add_pdf_content_to_file("pdf_files/Aditya_Keshari_Resume.pdf")
 
-# try:
-#     with open('cookies.jsonl', 'w') as f:
-#         f.write(json.dumps(user_info) + '\n')
-# except Exception as e: #file writing exception 
-#     print(e)
+import fitz  # PyMuPDF
 
-user_info_available = False
-try:
-    with open('cookies.jsonl', 'r') as f:
-        if f.read().strip():
-            user_info_available = True
-except FileNotFoundError:
-    pass
+def extract_text_from_pdf(pdf_path):
+    text = ""
+    try:
+        with fitz.open(pdf_path) as pdf_document:
+            num_pages = pdf_document.page_count
+            for page_num in range(num_pages):
+                page = pdf_document[page_num]
+                text += page.get_text()
+    except Exception as e:
+        print(f"Error: {e}")
+    return text
 
-print(user_info_available)
+# Replace 'your_pdf_file.pdf' with the path to your PDF file
+pdf_path = 'pdf_files/dbms-notes-by-love-babbar.pdf'
+extracted_text = extract_text_from_pdf(pdf_path)
+
+# Print or process the extracted text
+print(extracted_text)

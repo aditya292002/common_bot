@@ -1,0 +1,5 @@
+pypdf
+fastapi
+"uvicorn[standard]"
+requests
+bs4
