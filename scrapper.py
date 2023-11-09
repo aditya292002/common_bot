@@ -1,9 +1,7 @@
 
 from bs4 import BeautifulSoup
 import requests
-import os
-import PyPDF2
-
+import fitz  # PyMuPDF
 
 class read_content:    
     def scrape_website(self,url):
@@ -30,20 +28,17 @@ class read_content:
 
 
 
-    def add_pdf_content_to_file(directory):
-        for filename in os.listdir(directory):
-            if filename.endswith('.pdf'):
-                pdf_file_path = os.path.join(directory, filename)
-                with open(pdf_file_path, 'rb') as file:
-                    reader = PyPDF2.PdfFileReader(file)
-                    content = ''
-                    for page in range(reader.getNumPages()):
-                        content += reader.getPage(page).extractText()
-
-                    with open('data.txt', 'a') as f:
-                        f.write(content + '\n')
-
-    directory = 'pdf_files'  # replace with your directory
-add_pdf_content_to_file(directory)
-url = 'https://takeuforward.org/computer-network/layers-of-osi-model/'  # replace with your URL
-content = scrape_website(url)
+    def add_pdf_content_to_file(): #assuming that the file will be saved as my_file.pdf name 
+        text = ""
+        try:
+            with fitz.open("pdf_files/my_file.pdf") as pdf_document:
+                num_pages = pdf_document.page_count
+                for page_num in range(num_pages):
+                    page = pdf_document[page_num]
+                    text += page.get_text()
+            with open("data.txt", "w") as f:
+                f.write(text)
+        except Exception as e:
+            print(f"Error: {e}")
+            
+            

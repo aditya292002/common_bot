@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from models import UserInfo
 from cli import cli
 import json
+from scrapper import read_content
+
 app = FastAPI()
 
 
@@ -25,4 +27,12 @@ async def add_user_info(user_info: UserInfo):
     client = cli()
     return client.store_hugging_account_info(user_info)
 
-# get route to accept and url and process it 
+#  "get route" to get url and process it
+@app.get("/process_url")
+async def process_url(url:str):
+    read_content_obj = read_content()
+    read_content_obj.scrape_website(url)
+    
+    
+
+#  "get route" to get the pdf and handle it 

@@ -139,7 +139,7 @@ def extract_text_from_pdf(pdf_path):
     return text
 
 # Replace 'your_pdf_file.pdf' with the path to your PDF file
-pdf_path = 'pdf_files/dbms-notes-by-love-babbar.pdf'
+pdf_path = 'pdf_files/Aditya_Keshari_Resume.pdf'
 extracted_text = extract_text_from_pdf(pdf_path)
 
 # Print or process the extracted text

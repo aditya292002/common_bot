@@ -1,55 +1,18 @@
-from utility import *
-import time
-from icecream import ic
+from hugchat import hugchat
+from hugchat.login import Login
 
-PROMPT_LENGTH = 500
-ind = 0
+class hugChat:
+    def openConnection():
+        cookie_path_dir = "."
+        # code to find .json file in current directory
+        # pass the file in Login()
+        sign = Login("keshariaditya90@gmail.com", None)
+        cookies = sign.loadCookiesFromDir(cookie_path_dir) # This will detect if the JSON file exists, return cookies if it does and raise an Exception if it's not.
 
-start_GPT4FREE()
-file_content = read_file_content('data.txt')
-data_lst = file_content.split(' ')
+        # Create a ChatBot
+        chatbot = hugchat.ChatBot(cookies=cookies.get_dict())  # or cookie_path="usercookies/<email>.json"
 
-def generate_prompt(start_index, end_index):
-    return ' '.join(data_lst[start_index:end_index])
-
-def get_prompt():
-    global ind
-    global summary
-
-    if len(summary) >= 250:
-        summary = shorten_summary(summary)
-
-    rest_size = PROMPT_LENGTH - len(summary)
-    new_ind = ind + rest_size
-
-    if new_ind >= len(data_lst):
-        new_ind = len(data_lst) - 1
-
-    result = generate_prompt(ind, new_ind)
-    ind = new_ind
-
-    result += """
-    Generate 3 MCQs for this text content
-    Use format:
-    Q) Question
-    a) Answer 1
-    b) Answer 2
-    c) Answer 3
-    d) Answer 4
-    Solution: Answer X
-
-    For each MCQ, use at most 50 words.
-    """
-    return result
-
-complete_response = ""
-
-while ind < len(data_lst):
-    prompt = get_prompt()
-    if(len(prompt) < 500):
-        break
-    response = process_prompt(prompt)
-    complete_response += response
-    time.sleep(10)
-with open('mcq.txt', 'a') as mcq_file:
-    mcq_file.write(complete_response + '\n')
+        
+        # non stream response
+        query_result = chatbot.query("Hi!")
+        print(query_result) # or query_result.text or query_result["text"]
