@@ -7,7 +7,7 @@ class cli:
     def __init__(self):
         self.cookies_available = False
         self.cookies_file_name = None
-        self.get_cookies_file()  # Corrected method call
+        self.get_cookies_file()  
 
 
     # method to get cookies file and update the class variables
@@ -23,6 +23,8 @@ class cli:
         # Log in to huggingface and grant authorization to huggingchat
         email = user_info.email
         password = user_info.password
+        print("email :",email)
+        print("password :",password)
         sign = Login(email, password)
         cookies = sign.login()
 

@@ -17,7 +17,7 @@ class mcq_app:
 
         # Create a ChatBot
         self.chatbot = hugchat.ChatBot(cookies=self.cookies.get_dict())
-
+        self.chatbot.switch_llm(3) # Switch to the second model
     # get the data from data.txt to data list
     def get_data_from_file(self):
         with open("data.txt", "r") as f:
@@ -28,7 +28,7 @@ class mcq_app:
     def process(self):
         total_size = len(self.data)
         last_ind = 0
-        chuck_size = 400    
+        chuck_size = 100  
         while(last_ind < total_size):
             chunk = ' '.join(self.data[last_ind: last_ind + chuck_size])
             last_ind += chuck_size
@@ -48,9 +48,14 @@ class mcq_app:
                 "Answer" : "Answer with 10-20 length description"
             }]
             """
-
-            query_result = str(self.chatbot.query(prompt))
-
+            print("Done prompt generation")
+            print(len(prompt))
+            try:
+                query_result = str(self.chatbot.query(prompt))
+            except Exception as e:
+                print("Some error occured while processing the data" + e)
+                continue
+            print(query_result)
 
             start , end = 0, 0
             for i, e in enumerate(query_result):
