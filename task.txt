@@ -1,3 +1,0 @@
-read the data from url or pdf into data.txt
-
-create a class to scrape the url and add the data to data.txt
