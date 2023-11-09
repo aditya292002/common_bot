@@ -1,6 +1,9 @@
 
 from bs4 import BeautifulSoup
 import requests
+import os
+import PyPDF2
+
 
 class read_content:    
     def scrape_website(self,url):
@@ -25,6 +28,22 @@ class read_content:
 
         return content
 
-    def 
+
+
+    def add_pdf_content_to_file(directory):
+        for filename in os.listdir(directory):
+            if filename.endswith('.pdf'):
+                pdf_file_path = os.path.join(directory, filename)
+                with open(pdf_file_path, 'rb') as file:
+                    reader = PyPDF2.PdfFileReader(file)
+                    content = ''
+                    for page in range(reader.getNumPages()):
+                        content += reader.getPage(page).extractText()
+
+                    with open('data.txt', 'a') as f:
+                        f.write(content + '\n')
+
+    directory = 'pdf_files'  # replace with your directory
+add_pdf_content_to_file(directory)
 url = 'https://takeuforward.org/computer-network/layers-of-osi-model/'  # replace with your URL
 content = scrape_website(url)
