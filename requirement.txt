@@ -1,6 +1,0 @@
-# required python packages
-fastapi
-"uvicorn[standard]"
-requests
-bs4
-PyMuPDF

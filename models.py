@@ -1,9 +1,16 @@
+from database import Base
+from sqlalchemy import Column, Integer, String
 
-from pydantic import BaseModel
+class Users(Base):
+    __tablename__ = 'users'
 
-class UserInfo(BaseModel):
-    email: str
-    password: str
-class Url(BaseModel):
-    url: str
-
+    id = Column(Integer, primary_key=True, index=True) #index=true really accelaret search result
+    username = Column(String, unique=True)
+    hashed_password = Column(String)
+    session_id = Column(String)
+    
+    
+    
+    
+    
+    
