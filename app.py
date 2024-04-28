@@ -7,7 +7,7 @@ from icecream import ic
 from asyncio import *
 import asyncio
 
-# Add a title to the app
+# Add a title to the app    
 st.title("File Uploader")
 
 # Add a file uploader widget
@@ -75,28 +75,30 @@ with st.form("my_form"):
         Given a questions: {question} some tables with description.
         Tables : Description, 
         '''
-        ic("description before text")
-        ic(description)
+        # ic("description before text")
+        # ic(description)
 
         # add the description
         for key in tables_description.keys():
             description = description + key + " : " + tables_description[key]
 
         description = description + "name the tables which you think can help answer the question."
-        ic(description)
+        # ic(description)
         # code to get the tables (unique ones)
-        gemini_resp_tables = asyncio.run(get_gemini_response(description)) 
+        st.write(description)
+        gemini_resp_tables = get_gemini_response(description)
+        st.write("Gemeni step 1 response is : " + gemini_resp_tables)
         step1_tables = []
-        for word in gemini_resp_tables.split(""):
-            if word.lower() in tables.lower():
+
+        for word in gemini_resp_tables.split():
+            word = word.strip().replace("•", "")    
+            if word.strip().lower() in [table.lower() for table in tables]:  # tables coming from daata.py file
                 step1_tables.append(word.lower())
         step1_tables = list(set(step1_tables))
-        ic(step1_tables )
-
+      
         # for each table call a async function -> (get_result)
-        async def main():
-            resp = []
-            for table in step1_tables:
-                # st.write the result
-                st.write(f"From the table {table}")
-                st.write(get_result(table, question))
+    
+        resp = []
+        for table in step1_tables:
+            st.markdown(f"From the table {table}")
+            st.write(get_result(table, question))

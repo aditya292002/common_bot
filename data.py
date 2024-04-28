@@ -1,11 +1,11 @@
-tables_description = {"carData": "This contains name and nufacture years for the cars that are sold all over the world", "labData" : "this contains information about employees"}
-tables = ["carData", "labData"]
-tables_structure = {"carData" : '''CREATE TABLE IF NOT EXISTS "carData" (
+tables_description = {"cardata": "This contains name and nufacture years for the cars that are sold all over the world", "labdata" : "this contains information about employees"}
+tables = ["cardata", "labdata"]
+tables_structure = {"cardata" : '''CREATE TABLE IF NOT EXISTS "cardata" (
 "id" INTEGER,
   "Car Model" TEXT,
   "Manufacture" INTEGER
 );
-''', "labData" : '''CREATE TABLE IF NOT EXISTS "labData" (
+''', "labdata" : '''CREATE TABLE IF NOT EXISTS "labdata" (
 "id" INTEGER,
   "first_name" TEXT,
   "last_name" TEXT,
@@ -13,4 +13,5 @@ tables_structure = {"carData" : '''CREATE TABLE IF NOT EXISTS "carData" (
   "gender" TEXT,
   "ip_address" TEXT
 );
-'''} # table_name: table structire as a string 
+'''}
+# table_name: table structire as a string 
