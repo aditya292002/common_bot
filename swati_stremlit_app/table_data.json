@@ -1,0 +1,3 @@
+{
+  "employee_data": "Table: employee_data\nColumn: id, Type: INTEGER\nColumn: first_name, Type: TEXT\nColumn: last_name, Type: TEXT\n\n"
+}

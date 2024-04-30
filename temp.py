@@ -14,4 +14,4 @@ data['people'].append(new_person)
 
 # Open the JSON file in write mode and write the updated data
 with open('data.json', 'w') as file:
-    json.dump(data, file, indent=2)
+    json.dump(data, file, indent=2) 
