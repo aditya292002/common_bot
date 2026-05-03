@@ -12,7 +12,7 @@ db_name = 'new_db.sqlite3'
  
 # ---------------------- GETTING LLM RESPONSE FROM GEMENI LLM ------------------------------
 # configure our api key
-genai.configure(api_key="AIzaSyDAXor7GCuSmiDjYKeF7fa7t5ciigebmUY")
+genai.configure(api_key="Enter you own Genemini api key")
  
 # function to load local Gemini model and provide sql query as response
 def get_gemini_response(question):
